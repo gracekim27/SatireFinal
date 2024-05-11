@@ -1,66 +1,52 @@
 body {
     padding: 0;
     margin: 0;
-    overflow-x: hidden; /* Prevents horizontal scroll */
+    display: flex; /* Sets the display mode to flex */
+    flex-direction: column; /* Stacks children elements vertically */
+    align-items: center; /* Centers items horizontally */
+    min-height: 100vh; /* Ensures the body takes at least the full height of the viewport */
+    overflow-x: hidden; /* Prevents horizontal scrolling */
+}
+
+#custom-banner, #game-intro {
+    width: 100%; /* Ensures these elements take full width */
+    text-align: center; /* Centers text inside these elements */
+    padding: 10px 0; /* Adds vertical padding for visual separation */
 }
 
 #unity-container {
-    position: absolute;
-    width: 960px; /* Ensures the container has a fixed width */
-    left: 50%; /* Center horizontally */
-    transform: translateX(-50%);
-}
-
-#unity-container.unity-desktop {
-    top: 120px; /* Increase this value to push the game lower */
-}
-
-#unity-container.unity-mobile {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    top: 0; /* Ensure it covers the whole screen on mobile */
+    width: 960px; /* Width of the Unity game window */
+    max-width: 100%; /* Ensures it does not overflow the body width */
+    position: relative; /* Adjusted to be relative for natural flow in the document */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Optional: adds shadow for better visibility */
+    z-index: 2; /* Keeps it above other elements if overlapping occurs */
 }
 
 #unity-canvas {
     background: #231F20;
+    width: 100%; /* Makes sure canvas takes the full width of its container */
+    height: auto; /* Maintains aspect ratio */
+    aspect-ratio: 16 / 9; /* Optional: Ensures a specific aspect ratio */
 }
 
-.unity-mobile #unity-canvas {
-    width: 100%;
-    height: 100%;
+#unity-loading-bar, #unity-warning, #unity-logo, #unity-progress-bar-empty, #unity-progress-bar-full {
+    position: absolute; /* Keeps these elements absolutely positioned within their relative parent */
+    transform: translate(-50%, -50%); /* Centers them */
 }
 
-#unity-loading-bar {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    display: none;
+.unity-mobile #unity-canvas, .unity-mobile #unity-container {
+    width: 100%; /* Full width for mobile */
+    height: 100%; /* Full height for mobile */
+    position: fixed; /* Fixed position for full screen */
+    top: 0;
+    left: 0;
 }
-
-#unity-logo, #unity-progress-bar-empty, #unity-progress-bar-full {
-    background-size: cover; /* Ensures the background images cover the divs completely */
-}
-
-#unity-footer {
-    position: relative;
-}
-
-.unity-mobile #unity-footer {
-    display: none;
-}
-
-#unity-webgl-logo, #unity-build-title, #unity-fullscreen-button {
-    background-size: contain; /* Ensures the background images fit within the divs */
-}
-
-#unity-warning {
-    position: absolute;
-    left: 50%;
-    top: 5%;
-    transform: translateX(-50%);
-    background: white;
-    padding: 10px;
-    display: none;
-}
+#unity-loading-bar { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); display: none }
+#unity-logo { width: 154px; height: 130px; background: url('unity-logo-dark.png') no-repeat center }
+#unity-progress-bar-empty { width: 141px; height: 18px; margin-top: 10px; margin-left: 6.5px; background: url('progress-bar-empty-dark.png') no-repeat center }
+#unity-progress-bar-full { width: 0%; height: 18px; margin-top: 10px; background: url('progress-bar-full-dark.png') no-repeat center }
+#unity-footer { position: relative }
+.unity-mobile #unity-footer { display: none }
+#unity-build-title { float: right; margin-right: 10px; line-height: 38px; font-family: arial; font-size: 18px }
+#unity-fullscreen-button { cursor:pointer; float: right; width: 38px; height: 38px; background: url('fullscreen-button.png') no-repeat center }
+#unity-warning { position: absolute; left: 50%; top: 5%; transform: translate(-50%); background: white; padding: 10px; display: none }
